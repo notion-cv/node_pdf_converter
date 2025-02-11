@@ -1,3 +1,8 @@
 .env*
 node_modules
 dist
+
+# test용 디렉토리
+test/
+temp/
+tmp/
