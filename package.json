@@ -1,0 +1,24 @@
+{
+  "name": "node-pdf-converter",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsx --env-file=.env src",
+    "build": "tsc -p .",
+    "dev": "tsx  watch --include ./src/**/* --env-file=.env src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/notion-cv/node_pdf_converter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
