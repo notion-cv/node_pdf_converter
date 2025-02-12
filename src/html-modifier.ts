@@ -52,9 +52,13 @@ export class HTMLModifier {
     this.$("style").remove();
   }
 
-  setNewStyle() {
+  setFontFamily() {
     const head = this.$("head");
     head.append(`<link rel="stylesheet" href=${PRETENDARD_LINK} />`);
+  }
+
+  setNotionCVStyle() {
+    const head = this.$("head");
     head.append(`<link rel="stylesheet" href=${process.env.CSS_PATH} />`);
   }
 
