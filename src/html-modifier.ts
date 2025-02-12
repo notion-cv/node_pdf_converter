@@ -1,11 +1,11 @@
 import AdmZip from "adm-zip";
-import * as cheerio from "cheerio";
 import path from "path";
+import { load } from "cheerio";
 import { PRETENDARD_LINK } from "./constants/font";
 
 export class HTMLModifier {
   private zip: AdmZip;
-  private $: cheerio.CheerioAPI;
+  private $: cheerio.Root;
 
   constructor(zipBuffer: Buffer) {
     this.zip = new AdmZip(zipBuffer);
@@ -21,9 +21,10 @@ export class HTMLModifier {
     if (!html) {
       throw new Error("no html file");
     }
-    this.$ = cheerio.load(html.getData().toString("utf-8"));
+    this.$ = load(html.getData().toString("utf-8"));
   }
 
+  // image
   async convertImageSrcToBase64() {
     const images = this.$("img");
 
@@ -48,6 +49,7 @@ export class HTMLModifier {
     }
   }
 
+  // style
   resetStyleSheet() {
     this.$("style").remove();
   }
@@ -62,6 +64,23 @@ export class HTMLModifier {
     head.append(`<link rel="stylesheet" href=${process.env.CSS_PATH} />`);
   }
 
+  // tag 조정
+  removeUnnecessaryTags() {
+    // strong tag 안에 불필요한 br이 두 번 들어가는 경우
+    // TODO: 여러가지 경우가 생기면 분리하기
+    this.$("strong").each((i, el) => {
+      const strong = this.$(el);
+      strong.contents().each((i, c) => {
+        const child = this.$(c).get(0);
+        if (child.type !== "tag") return;
+        if (child.tagName !== "br") return;
+        if (child.prev.tagName !== "br") return;
+        this.$(c).remove();
+      });
+    });
+  }
+
+  // get
   getModifiedHtml() {
     return this.$.html();
   }
