@@ -1,6 +1,7 @@
 import AdmZip from "adm-zip";
 import * as cheerio from "cheerio";
 import path from "path";
+import { PRETENDARD_LINK } from "./constants/font";
 
 export class HTMLModifier {
   private zip: AdmZip;
@@ -45,6 +46,16 @@ export class HTMLModifier {
         this.$(img).attr("src", base64String);
       }
     }
+  }
+
+  resetStyleSheet() {
+    this.$("style").remove();
+  }
+
+  setNewStyle() {
+    const head = this.$("head");
+    head.append(`<link rel="stylesheet" href=${PRETENDARD_LINK} />`);
+    head.append(`<link rel="stylesheet" href=${process.env.CSS_PATH} />`);
   }
 
   getModifiedHtml() {
