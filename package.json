@@ -17,6 +17,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@sparticuz/chromium": "^132.0.0",
     "@types/adm-zip": "^0.5.7",
     "@types/node": "^22.13.1",
     "tsx": "^4.19.2",
@@ -26,6 +27,6 @@
     "@types/cheerio": "^0.22.35",
     "adm-zip": "^0.5.16",
     "cheerio": "^1.0.0",
-    "puppeteer-core": "^24.2.0"
+    "puppeteer-core": "^24.1.1"
   }
 }

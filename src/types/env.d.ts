@@ -7,6 +7,7 @@ declare global {
       AWS_NOTION_CV_BUCKET_NAME: string;
       LAMBDA_FUNCTION_NAME: string;
       CSS_PATH: string;
+      ENV: string;
     }
   }
 }
