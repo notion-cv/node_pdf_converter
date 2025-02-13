@@ -5,7 +5,7 @@ esbuild.build({
   bundle: true,
   platform: "node",
   target: "node18",
-  outfile: "dist/index.js",
+  outfile: "dist/lambda.js",
   external: ["@sparticuz/chromium", "puppeteer-core"],
   minify: true,
 });
