@@ -22,6 +22,7 @@ export class HTMLModifier {
       throw new Error("no html file");
     }
     this.$ = load(html.getData().toString("utf-8"));
+    console.log("file load 완료");
   }
 
   // image
@@ -52,6 +53,7 @@ export class HTMLModifier {
         this.$(img).attr("src", base64String);
       }
     }
+    console.log("이미지 변경 완료");
   }
 
   // style

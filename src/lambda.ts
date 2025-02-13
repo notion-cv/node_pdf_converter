@@ -25,6 +25,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     if (!event.body) return generateErrorResult(400, "body가 없습니다.");
 
     const requestId = JSON.parse(event.body)?.requestId;
+    console.log("requestId", requestId);
     if (!requestId) return generateErrorResult(400, "requestId가 없습니다.");
 
     const inputKey = `temp/${requestId}/${requestId}.zip`;
@@ -40,6 +41,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     if (!arrayBuffer)
       return generateErrorResult(400, "유효한 zip파일이 아닙니다.");
 
+    console.log("S3에서 zip 파일 불러오기 완료");
+
     const zipBuffer = Buffer.from(arrayBuffer);
     const result = await PDFConverter.convertToPDF(zipBuffer);
 
@@ -54,6 +57,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       Body: result.data,
       ContentType: "application/pdf",
     });
+
+    console.log("PDF 저장 완료");
 
     await s3Client.send(putCommand);
     return {

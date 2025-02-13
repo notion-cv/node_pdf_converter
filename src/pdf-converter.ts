@@ -82,6 +82,7 @@ export class PDFConverter {
     htmlModifier.removeUnnecessaryTags();
 
     const modifiedHtml = htmlModifier.getModifiedHtml();
+    console.log("html 세팅 완료");
     return modifiedHtml;
   }
 
