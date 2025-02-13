@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import {
   GetObjectCommand,
   PutObjectCommand,
@@ -20,7 +20,7 @@ const generateErrorResult = (
   };
 };
 
-export const handler: APIGatewayProxyHandler = async (event) => {
+exports.handler = async (event: APIGatewayProxyEvent) => {
   try {
     console.log("start");
     if (!event.body) return generateErrorResult(400, "body가 없습니다.");
