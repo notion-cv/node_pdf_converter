@@ -1,6 +1,7 @@
 import puppeteer, { Browser, PDFOptions } from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 import { HTMLModifier } from "./html-modifier";
+import fs from "fs/promises";
 
 export type PDFConverterResponse = {
   success: boolean;
@@ -12,13 +13,17 @@ export class PDFConverter {
   private static readonly DEFAULT_PDF_OPTIONS: PDFOptions = {
     format: "A4",
     margin: {
-      top: "20px",
-      right: "20px",
-      bottom: "20px",
-      left: "20px",
+      top: "0px",
+      right: "0px",
+      bottom: "0px",
+      left: "0px",
     },
+    // DPI 설정을 위한 옵션
+    width: "8.27in", // A4 너비
+    height: "11.7in", // A4 높이
     printBackground: true,
     preferCSSPageSize: true,
+    omitBackground: false,
   };
 
   public static async convertToPDF(
@@ -27,6 +32,7 @@ export class PDFConverter {
     let browser;
     try {
       const htmlContent = await this.extractAndModifyContent(zipBuffer);
+      fs.writeFile("modified.html", htmlContent);
 
       browser = await puppeteer.launch({
         // Lambda 환경에서 필요한 특수 플래그들(sandbox 설정 등)이 포함됨
@@ -88,10 +94,30 @@ export class PDFConverter {
   ): Promise<Buffer> {
     const page = await browser.newPage();
     try {
+      await page.setViewport({
+        width: 1920,
+        height: 1080,
+        deviceScaleFactor: 3, // DPI를 3배로 증가
+      });
       await page.setContent(html, {
         // 언제까지 기다릴지: https://pptr.dev/api/puppeteer.puppeteerlifecycleevent
         waitUntil: ["networkidle0", "load", "domcontentloaded"],
       });
+
+      // 모든 이미지가 로드될 때까지 기다림
+      await page.evaluate(() => {
+        return Promise.all(
+          Array.from(document.images)
+            .filter((img) => !img.complete)
+            .map(
+              (img) =>
+                new Promise((resolve) => {
+                  img.onload = img.onerror = resolve;
+                })
+            )
+        );
+      });
+
       await page.evaluateHandle("document.fonts.ready");
 
       const pdf = await page.pdf(options);

@@ -34,7 +34,8 @@ export class HTMLModifier {
 
       if (src) {
         const decodedSrc = decodeURIComponent(src);
-        if (decodedSrc.startsWith("https://")) continue;
+
+        if (decodedSrc.startsWith("https//")) continue;
 
         const imageEntry = this.zip.getEntry(decodedSrc);
         if (!imageEntry) continue;
@@ -78,7 +79,7 @@ export class HTMLModifier {
         const child = this.$(c).get(0);
         if (child.type !== "tag") return;
         if (child.tagName !== "br") return;
-        if (child.prev.tagName !== "br") return;
+        if (child.prev?.tagName !== "br") return;
         this.$(c).remove();
       });
     });
