@@ -32,5 +32,5 @@ jobs:
         run: |
           zip function.zip ./dist/lambda.js
           aws lambda update-function-code \
-          --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
-          --zip-file fileb://function.zip
+            --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
+            --zip-file fileb://function.zip
