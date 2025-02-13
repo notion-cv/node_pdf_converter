@@ -8,6 +8,7 @@ declare global {
       AWS_REGION: string;
       AWS_NOTION_CV_BUCKET_NAME: string;
       AWS_LAMBDA_FUNCTION_NAME: string;
+      AWS_LAMBDA_CHROMIUM_LAYER: string;
     }
   }
 }

@@ -34,4 +34,4 @@ jobs:
         run: |
           aws lambda update-function-configuration \
             --function-name "$FUNCTION_NAME" \
-            --layers "arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda:49"
+            --layers ${{ secrets.AWS_LAMBDA_CHROMIUM_LAYER }}
