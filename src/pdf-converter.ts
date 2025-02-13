@@ -1,7 +1,6 @@
 import puppeteer, { Browser, PDFOptions } from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 import { HTMLModifier } from "./html-modifier";
-import fs from "fs/promises";
 
 export type PDFConverterResponse = {
   success: boolean;
@@ -32,7 +31,6 @@ export class PDFConverter {
     let browser;
     try {
       const htmlContent = await this.extractAndModifyContent(zipBuffer);
-      fs.writeFile("modified.html", htmlContent);
 
       browser = await puppeteer.launch({
         // Lambda 환경에서 필요한 특수 플래그들(sandbox 설정 등)이 포함됨
