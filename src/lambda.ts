@@ -8,7 +8,7 @@ import {
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
-import { PDFConverter } from "./pdf-converter";
+// import { PDFConverter } from "./pdf-converter";
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION || "ap-northeast-2",
