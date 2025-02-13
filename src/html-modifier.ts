@@ -40,8 +40,12 @@ export class HTMLModifier {
         if (!imageEntry) continue;
 
         const imgBuffer = imageEntry.getData();
-        const extension = path.extname(src).substring(1);
-        const base64String = `data:image/${extension};base64,${imgBuffer.toString(
+        const extension = path.extname(src).toLowerCase();
+        let mimeType =
+          extension === ".svg"
+            ? "image/svg+xml"
+            : `image/${extension.substring(1)}`;
+        const base64String = `data:${mimeType};base64,${imgBuffer.toString(
           "base64"
         )}`;
         this.$(img).attr("src", base64String);
