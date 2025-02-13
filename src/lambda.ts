@@ -22,6 +22,7 @@ const generateErrorResult = (
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   try {
+    console.log("start");
     if (!event.body) return generateErrorResult(400, "body가 없습니다.");
 
     const requestId = JSON.parse(event.body)?.requestId;
