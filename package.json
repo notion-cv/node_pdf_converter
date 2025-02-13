@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsx --env-file=.env src",
-    "build": "tsc -p .",
+    "build": "esbuild src/lambda.ts --bundle --platform=node --target=node18 --outfile=dist/lambda.js",
     "dev": "tsx  watch --include ./src/**/* --env-file=.env src"
   },
   "repository": {
