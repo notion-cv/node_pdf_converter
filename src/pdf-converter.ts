@@ -68,8 +68,6 @@ export class PDFConverter {
         success: false,
         error: e instanceof Error ? e.message : "Unknown error",
       };
-    } finally {
-      browser?.close();
     }
   }
 
