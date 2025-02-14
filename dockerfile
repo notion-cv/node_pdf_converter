@@ -32,14 +32,21 @@ RUN dnf install -y \
     xorg-x11-utils \
     && dnf clean all
 
+# Install Chromium using @sparticuz/chromium (자동 다운로드 사용)
+RUN mkdir -p /opt/chromium
+
 COPY package*.json ./
-RUN npm install
+RUN npm ci  # 패키지 일관성을 유지하기 위해 npm ci 사용
 
 COPY . .
 RUN npm run build
 
 CMD [ "dist/lambda.handler" ]
 
+# 환경 변수 설정 (Chromium 실행 경로 수정)
 ENV AWS_LAMBDA_FUNCTION_MEMORY_SIZE=2048
-ENV CHROME_PATH=/opt/chrome/chrome
 ENV NODE_OPTIONS="--max-old-space-size=2048"
+
+# Sparticuz Chromium 실행 경로
+ENV CHROME_PATH="/opt/chromium/chrome"
+ENV CHROMIUM_PATH="/opt/chromium/chrome"
