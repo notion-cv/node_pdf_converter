@@ -32,7 +32,9 @@ export class PDFConverter {
     try {
       const htmlContent = await this.extractAndModifyContent(zipBuffer);
 
-      console.log("Chromium path:", await chromium.executablePath());
+      console.log("before");
+      const chromiumPath = (await chromium.executablePath()) || "/opt/chromium";
+      console.log("ChromiumPath", chromiumPath);
       browser = await puppeteer.launch({
         // Lambda 환경에서 필요한 특수 플래그들(sandbox 설정 등)이 포함됨
         args: [
@@ -49,7 +51,7 @@ export class PDFConverter {
         executablePath:
           process.env.ENV === "local"
             ? "/opt/homebrew/bin/chromium"
-            : "/opt/chromium",
+            : chromiumPath,
         // GUI 없이 백그라운드에서 실행
         // true로 설정하면 화면 출력 없이 동작
         headless: true,
