@@ -1,5 +1,14 @@
 FROM public.ecr.aws/lambda/nodejs:22
 
+# Build-time arguments
+ARG AWS_NOTION_CV_BUCKET_NAME
+ARG CSS_PATH
+
+# Environment variables
+ENV AWS_NOTION_CV_BUCKET_NAME=${AWS_NOTION_CV_BUCKET_NAME}
+ENV CSS_PATH=${CSS_PATH}
+ENV NODE_ENV=prd
+
 # Install Chromium dependencies
 RUN dnf install -y \
     alsa-lib \
