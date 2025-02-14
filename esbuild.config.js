@@ -7,5 +7,6 @@ esbuild.build({
   target: "node18",
   outfile: "dist/lambda.js",
   external: ["src/index.ts"],
+  format: "cjs",
   minify: true,
 });
