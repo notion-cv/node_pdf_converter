@@ -38,25 +38,11 @@ RUN dnf install -y \
     xorg-x11-fonts-cyrillic \
     xorg-x11-fonts-Type1 \
     xorg-x11-utils \
-    curl \
-    unzip \
     && dnf clean all
 
 # Install dependencies
 COPY package*.json ./
 RUN npm install ci
-
-
-# Install Chromium
-RUN curl -Lo "/tmp/chromium.zip" "https://raw.githubusercontent.com/Sparticuz/chromium/v132.0.0/chromium-v132.0.0-pack.zip" \
-    && unzip /tmp/chromium.zip -d /tmp/ \
-    && chmod -R 755 /tmp/chromium \
-    && rm /tmp/chromium.zip
-
-# Verify installation
-RUN ls -la /tmp/
-RUN ls -la /tmp/chromium
-RUN file /tmp/chromium
 
 COPY . .
 RUN npm run build
