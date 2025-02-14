@@ -41,8 +41,8 @@ RUN npm ci  # 패키지 일관성을 유지하기 위해 npm ci 사용
 COPY . .
 RUN npm run build
 
-# Execute permission for Chromium
-RUN chmod +x /opt/chromium/chrome
+# Verify Chromium installation
+RUN node -e "console.log(require('@sparticuz/chromium').executablePath())"
 
 CMD [ "dist/lambda.handler" ]
 
