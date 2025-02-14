@@ -10,9 +10,7 @@ import {
 } from "@aws-sdk/client-s3";
 // import { PDFConverter } from "./pdf-converter";
 
-export const handler: APIGatewayProxyHandler = async (
-  event: APIGatewayProxyEvent
-) => {
+export const handler: APIGatewayProxyHandler = async (event, context) => {
   // const s3Client = new S3Client({
   //     region: process.env.AWS_REGION || "ap-northeast-2",
   //   });
