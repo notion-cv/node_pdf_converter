@@ -17,6 +17,7 @@ const generateErrorResult = (statusCode: number, errorString?: string) => {
 };
 
 export const handler = async (event: any, context: Context) => {
+  console.log("start");
   try {
     console.log(event.requestId);
 
