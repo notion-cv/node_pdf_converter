@@ -44,6 +44,12 @@ RUN dnf install -y \
 COPY package*.json ./
 RUN npm install ci
 
+RUN npm list @sparticuz/chromium  # 설치된 버전 확인
+
+# Chromium 설치 검증
+RUN ls -la /tmp/  # /tmp 디렉토리 내용물 확인
+RUN ls -la /tmp/chromium  # chromium 파일 확인
+
 COPY . .
 RUN npm run build
 
