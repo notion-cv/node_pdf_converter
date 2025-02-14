@@ -35,7 +35,7 @@ WORKDIR /var/task
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install --omit=dev
+RUN npm install ci
 
 COPY . .
 RUN npm run build
