@@ -6,6 +6,6 @@ esbuild.build({
   platform: "node",
   target: "node18",
   outfile: "dist/lambda.js",
-  external: ["@sparticuz/chromium", "puppeteer-core"],
+  external: ["src/index.ts"],
   minify: true,
 });
