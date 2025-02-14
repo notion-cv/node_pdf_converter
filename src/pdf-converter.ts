@@ -49,7 +49,7 @@ export class PDFConverter {
         executablePath:
           process.env.ENV === "local"
             ? "/opt/homebrew/bin/chromium"
-            : "/opt/chrome/chrome",
+            : await chromium.executablePath(),
         // GUI 없이 백그라운드에서 실행
         // true로 설정하면 화면 출력 없이 동작
         headless: true,
