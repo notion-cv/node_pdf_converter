@@ -18,10 +18,9 @@ const generateErrorResult = (statusCode: number, errorString?: string) => {
 
 export const handler = async (event: any, context: Context) => {
   try {
-    console.log(event.toString());
-    if (!event?.body) return generateErrorResult(400, "body가 없습니다.");
+    console.log(event.requestId);
 
-    const requestId = JSON.parse(event.body)?.requestId;
+    const requestId = event.requestId;
     console.log("requestId", requestId);
     if (!requestId) return generateErrorResult(400, "requestId가 없습니다.");
 
