@@ -41,6 +41,9 @@ RUN npm ci  # 패키지 일관성을 유지하기 위해 npm ci 사용
 COPY . .
 RUN npm run build
 
+# Execute permission for Chromium
+RUN chmod +x /opt/chromium/chrome
+
 CMD [ "dist/lambda.handler" ]
 
 # 환경 변수 설정 (Chromium 실행 경로 수정)
