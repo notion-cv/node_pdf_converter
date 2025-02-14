@@ -1,31 +1,25 @@
 import {
-  APIGatewayProxyEvent,
-  APIGatewayProxyHandler,
-  APIGatewayProxyResult,
-} from "aws-lambda";
-import {
   GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
 import { PDFConverter } from "./pdf-converter";
+import { Context } from "aws-lambda";
 
-export const handler: APIGatewayProxyHandler = async (event, context) => {
-  const s3Client = new S3Client({
-    region: process.env.AWS_REGION || "ap-northeast-2",
-  });
-  const generateErrorResult = (
-    statusCode: APIGatewayProxyResult["statusCode"],
-    errorString?: string
-  ) => {
-    return {
-      statusCode,
-      body: JSON.stringify({ error: errorString || "에러가 발생했습니다." }),
-    };
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION || "ap-northeast-2",
+});
+const generateErrorResult = (statusCode: number, errorString?: string) => {
+  return {
+    statusCode,
+    body: JSON.stringify({ error: errorString || "에러가 발생했습니다." }),
   };
+};
+
+export const handler = async (event: any, context: Context) => {
   try {
-    console.log("start");
-    if (!event.body) return generateErrorResult(400, "body가 없습니다.");
+    console.log(event.toString());
+    if (!event?.body) return generateErrorResult(400, "body가 없습니다.");
 
     const requestId = JSON.parse(event.body)?.requestId;
     console.log("requestId", requestId);
