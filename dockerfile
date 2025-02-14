@@ -9,13 +9,14 @@ ENV AWS_NOTION_CV_BUCKET_NAME=${AWS_NOTION_CV_BUCKET_NAME}
 ENV CSS_PATH=${CSS_PATH}
 ENV NODE_ENV=prd
 
-# Install Chromium dependencies
+
+# Install required packages
 RUN dnf install -y \
+    mesa-libgbm \
     alsa-lib \
     atk \
     cups-libs \
     gtk3 \
-    ipa-gothic-fonts \
     libXcomposite \
     libXcursor \
     libXdamage \
@@ -25,18 +26,16 @@ RUN dnf install -y \
     libXScrnSaver \
     libXtst \
     pango \
-    xorg-x11-fonts-100dpi \
-    xorg-x11-fonts-75dpi \
-    xorg-x11-fonts-cyrillic \
     xorg-x11-fonts-Type1 \
     xorg-x11-utils \
     && dnf clean all
 
-# Install Chromium using @sparticuz/chromium (자동 다운로드 사용)
-RUN mkdir -p /opt/chromium
+# Set working directory
+WORKDIR /var/task
 
+# Install dependencies
 COPY package*.json ./
-RUN npm ci  # 패키지 일관성을 유지하기 위해 npm ci 사용
+RUN npm install --omit=dev
 
 COPY . .
 RUN npm run build
