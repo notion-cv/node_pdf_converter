@@ -38,6 +38,8 @@ RUN dnf install -y \
     xorg-x11-fonts-cyrillic \
     xorg-x11-fonts-Type1 \
     xorg-x11-utils \
+    curl \
+    unzip \
     && dnf clean all
 
 # Install dependencies
