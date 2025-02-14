@@ -34,7 +34,10 @@ export class PDFConverter {
 
       console.log("before");
       console.log("Starting PDF conversion...");
-      const chromiumPath = (await chromium.executablePath()) || "/tmp/chromium";
+      const chromiumPath =
+        process.env.CHROMIUM_PATH ||
+        (await chromium.executablePath()) ||
+        "/tmp/chromium";
       browser = await puppeteer.launch({
         // Lambda 환경에서 필요한 특수 플래그들(sandbox 설정 등)이 포함됨
         args: [
