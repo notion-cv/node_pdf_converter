@@ -10,23 +10,22 @@ import {
 } from "@aws-sdk/client-s3";
 // import { PDFConverter } from "./pdf-converter";
 
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION || "ap-northeast-2",
-});
-
-const generateErrorResult = (
-  statusCode: APIGatewayProxyResult["statusCode"],
-  errorString?: string
-) => {
-  return {
-    statusCode,
-    body: JSON.stringify({ error: errorString || "에러가 발생했습니다." }),
-  };
-};
-
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ) => {
+  // const s3Client = new S3Client({
+  //     region: process.env.AWS_REGION || "ap-northeast-2",
+  //   });
+  // const generateErrorResult = (
+  //     statusCode: APIGatewayProxyResult["statusCode"],
+  //     errorString?: string
+  //   ) => {
+  //     return {
+  //       statusCode,
+  //       body: JSON.stringify({ error: errorString || "에러가 발생했습니다." }),
+  //     };
+  //   };
+
   console.log("start?");
   return {
     statusCode: 200,
