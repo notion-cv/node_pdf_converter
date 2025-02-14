@@ -44,11 +44,17 @@ RUN dnf install -y \
 COPY package*.json ./
 RUN npm install ci
 
-RUN npm list @sparticuz/chromium  # 설치된 버전 확인
 
-# Chromium 설치 검증
-RUN ls -la /tmp/  # /tmp 디렉토리 내용물 확인
-RUN ls -la /tmp/chromium  # chromium 파일 확인
+# Install Chromium
+RUN curl -Lo "/tmp/chromium.zip" "https://raw.githubusercontent.com/Sparticuz/chromium/v132.0.0/chromium-v132.0.0-pack.zip" \
+    && unzip /tmp/chromium.zip -d /tmp/ \
+    && chmod -R 755 /tmp/chromium \
+    && rm /tmp/chromium.zip
+
+# Verify installation
+RUN ls -la /tmp/
+RUN ls -la /tmp/chromium
+RUN file /tmp/chromium
 
 COPY . .
 RUN npm run build
