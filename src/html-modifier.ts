@@ -63,7 +63,16 @@ export class HTMLModifier {
 
   setFontFamily() {
     const head = this.$("head");
-    head.append(`<link rel="stylesheet" href=${PRETENDARD_LINK} />`);
+    head.append(`<link rel="stylesheet" href=${PRETENDARD_LINK} as="style" />`);
+    head.append(`<link rel="preload" href=${PRETENDARD_LINK} />`);
+    // 폰트 적용 확실히 하기
+    head.append(`
+    <style>
+      * {
+        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+      }
+    </style>
+  `);
   }
 
   setNotionCVStyle() {
