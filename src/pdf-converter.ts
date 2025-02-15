@@ -47,7 +47,7 @@ export class PDFConverter {
           "--disable-software-rasterizer",
           "--lang=ko-KR,ko",
           "--no-sandbox",
-          "--disable-font-subpixel-positioning",
+          "--disable-font-subpixel-positioning", // 제거하면 자간이 엉망이 됨
         ],
         // 브라우저 뷰포트(화면 크기) 설정
         // Lambda에 최적화된 기본값 사용
