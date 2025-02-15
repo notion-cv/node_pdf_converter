@@ -38,8 +38,13 @@ RUN dnf install -y \
     xorg-x11-fonts-cyrillic \
     xorg-x11-fonts-Type1 \
     xorg-x11-utils \
-    fonts-noto-color-emoji \
     && dnf clean all
+
+# noto color emoji 설치
+RUN mkdir -p /usr/share/fonts/noto
+RUN curl -L -o /usr/share/fonts/noto/NotoColorEmoji.ttf \
+    https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
+RUN fc-cache -fv
 
 # Install dependencies
 COPY package*.json ./
