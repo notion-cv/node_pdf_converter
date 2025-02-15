@@ -44,6 +44,7 @@ export class PDFConverter {
           "--font-render-hinting=medium",
           "--disable-gpu-vsync",
           "--disable-software-rasterizer",
+          "--lang=ko-KR,ko",
         ],
         // 브라우저 뷰포트(화면 크기) 설정
         // Lambda에 최적화된 기본값 사용
@@ -101,6 +102,7 @@ export class PDFConverter {
         height: 1080,
         deviceScaleFactor: 3, // DPI를 3배로 증가
       });
+
       await page.setContent(html, {
         // 언제까지 기다릴지: https://pptr.dev/api/puppeteer.puppeteerlifecycleevent
         waitUntil: ["networkidle0", "load", "domcontentloaded"],
