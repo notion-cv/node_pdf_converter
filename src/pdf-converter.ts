@@ -23,6 +23,7 @@ export class PDFConverter {
     printBackground: true,
     preferCSSPageSize: true,
     omitBackground: false,
+    waitForFonts: true,
   };
 
   public static async convertToPDF(
@@ -45,6 +46,7 @@ export class PDFConverter {
           "--disable-gpu-vsync",
           "--disable-software-rasterizer",
           "--lang=ko-KR,ko",
+          "--no-sandbox",
         ],
         // 브라우저 뷰포트(화면 크기) 설정
         // Lambda에 최적화된 기본값 사용
